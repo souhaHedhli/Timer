@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Container, Row, Col } from 'reactstrap';
 
+let hour = '00'
+let menute = '30'
+let second = '00'
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Container className="App">
+        <Row className='m-t-50'>
+          <Col className='font-xl'>{hour}:{menute}:{second}</Col>
+        </Row>
+        <Row>
+          <Col className='font-s gray float-right'>
+          <span className='p-75'>Hour</span>
+          <span className='p-r-60'>Menute</span>
+          <span className='p-r-50'>Second</span>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
