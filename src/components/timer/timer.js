@@ -1,30 +1,54 @@
-import React from 'react';
-import './timer.css';
-import { Container, Row, Col } from 'reactstrap';
-import msToTime from '../../converter.js'
+import React from "react"
+import TimerView from "../../converter.js"
+class TimerContainer extends React.Component {
+   constructor(){
+       super()
+       this.state={
+           timems:0,
+           interval:null
+       }
+    }
+       timeOn = () => {
+        this.setState({
+            timems: this.state.timems + 1000
+        })
+    }
+    start = () => {
 
-const Timer =() => {
-  /*constructor(props) {
-    super(props);
-    this.state = {
-    time: 0,
-  };
-} */
-const duration = 9600000
+            const intervalId = setInterval(this.timeOn, 1000)
+            this.setState({
+                interval:intervalId
+            })
+
+            }
+   pause = () =>{
+        clearInterval(this.state.interval)
+        this.setState({
+            interval:null
+        })
+   }
+   playOrPause = () =>{
+       return this.state.interval ? this.pause() : this.start()
+   }
+
+     reset = () =>{
+        this.setState({
+            timems:0
+        })
+        this.pause()
+     }
+
+    render() {
     return (
-      <Container className="App">
-        <Row className='m-t-50'>
-          {msToTime(duration)}
-        </Row>
-        <Row>
-          <Col className='font-s gray float-right'>
-          <span className='p-75'>Hour</span>
-          <span className='p-r-60'>Minute</span>
-          <span className='p-r-50'>Second</span>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+        <div className="container">
+            <TimerView time={this.state.timems} />
+            <div className="btns">
+                <input  className="btn" style={this.state.interval?{color:"red"} : {color:"green"}} onClick={this.playOrPause} type="button" value={ this.state.interval? "Pause" : "Play"} />
+                <input  className="btn" onClick={this.reset} type="button" value="Reset" />
+            </div>
+        </div>
+        ) ;
 
-export default Timer;
+    }
+}
+    export default TimerContainer
